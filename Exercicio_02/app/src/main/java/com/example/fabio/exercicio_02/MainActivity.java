@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
-
+public float i=0, t;
     TextView tv_steps;
     boolean running = false;
     SensorManager sensorManager;
@@ -28,13 +28,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         tv_steps = (TextView) findViewById(R.id.tv_steps);
         btnReset = (Button) findViewById(R.id.btnReset);
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-
-        btnReset.setOnClickListener(new View.OnClickListener() {
+        tv_steps.setText(String.valueOf(i));
+        btnReset.setOnClickListener(
+                new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                tv_steps.setText(0);
-
+                i=0;
+                tv_steps.setText(String.valueOf(i));
             }
         });
     }
@@ -60,7 +61,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onSensorChanged(SensorEvent event) {
         if (running) {
-            tv_steps.setText(String.valueOf(event.values[0]));
+            tv_steps.setText(String.valueOf(i));.
+            if (t<event.values[0]) {
+                i++;
+                tv_steps.setText(String.valueOf(i));
+            }else {
+                tv_steps.setText(String.valueOf(i));
+            }
+
+            t=event.values[0];
+
         }
     }
 
