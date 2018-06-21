@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        
+
         txLongitude = (TextView) findViewById(R.id.txLongitude);
         txLatitude = (TextView) findViewById(R.id.txLatitude);
 
