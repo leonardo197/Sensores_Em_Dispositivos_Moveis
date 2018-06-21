@@ -61,7 +61,7 @@ public float i=0, t;
     @Override
     public void onSensorChanged(SensorEvent event) {
         if (running) {
-            tv_steps.setText(String.valueOf(i));.
+            tv_steps.setText(String.valueOf(i));
             if (t<event.values[0]) {
                 i++;
                 tv_steps.setText(String.valueOf(i));

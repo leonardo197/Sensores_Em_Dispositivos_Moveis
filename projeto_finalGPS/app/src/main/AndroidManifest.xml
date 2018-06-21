@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.sensores.projeto_finalgps">
+
+    <uses-permission android:name="android.permission. ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />//premicao para osar gps com preCisao
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />//premicao para osar arquivos
 
