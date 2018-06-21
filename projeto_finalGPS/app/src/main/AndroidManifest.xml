@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.sensores.projeto_finalgps">
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />//premicao para osar gps com preCisao
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />//premicao para osar arquivos
+
+    //teste
+    <uses-permission android:name="android.permission.WRITE_OWNER_DATA" />
+    <uses-permission android:name="android.permission.READ_OWNER_DATA" />
+    ///
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
