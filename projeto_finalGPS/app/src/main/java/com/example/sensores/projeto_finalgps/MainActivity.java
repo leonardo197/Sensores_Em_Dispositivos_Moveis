@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
                 if (gravar == true) {
                     try {
-                        texto_do_arquivo = Longitude + ";" + Latitude + ";" + passos;//+";"+event.values[1]+";"+event.values[2]+";"+event.values[3];
+                        texto_do_arquivo = Longitude + ";" + Latitude + ";" + passos+";"+X+";"+Y+";"+Z;
                         writer.append(texto_do_arquivo);
                         writer.append('\n');
                     } catch (IOException e) {
@@ -173,17 +173,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 Y = event.values[2];
                 Z = event.values[3];
 
-                if(Y < 0) { // O dispositivo esta de cabeça pra baixo
-                    if(X > 0)
-                        textViewDetail.setText("Virando para ESQUERDA ficando INVERTIDO");
-                    if(X < 0)
-                        textViewDetail.setText("Virando para DIREITA ficando INVERTIDO");
-                } else {
-                    if(X > 0)
-                        textViewDetail.setText("Virando para ESQUERDA ");
-                    if(X < 0)
-                        textViewDetail.setText("Virando para DIREITA ");
-                }
+
             }
         }
     }
