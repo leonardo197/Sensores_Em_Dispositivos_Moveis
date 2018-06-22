@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -31,7 +32,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 
-public class MainActivity extends AppCompatActivity implements SensorEventListener {
+public class MainActivity extends AppCompatActivity implements SensorEventListener, OnMapReadyCallback {
     TextView txLongitude;
     TextView txLatitude;
     TextView textViewCounter;
@@ -57,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setContentView(R.layout.activity_main);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.mapView);
+                .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
         txLongitude = (TextView) findViewById(R.id.txLongitude);
@@ -189,8 +190,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney, Australia, and move the camera.
-        LatLng sydney = new LatLng(39.27638702, -7.43474906);
+        LatLng sydney = new LatLng(Longitude, Latitude);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
