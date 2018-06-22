@@ -29,16 +29,16 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textViewLongitude" />
 
-    <EditText
+    <TextView
         android:id="@+id/txLatitude"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="@+id/textViewLatitude"
         app:layout_constraintEnd_toEndOf="@+id/txLongitude"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/txLongitude"
-        app:layout_constraintTop_toTopOf="@+id/textViewLatitude" />
+        app:layout_constraintTop_toTopOf="@+id/textViewLatitude"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textViewLongitude"
@@ -52,14 +52,13 @@
         app:layout_constraintBottom_toTopOf="@+id/buttonStart"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
+    <TextView
         android:id="@+id/txLongitude"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="215dp"
+        android:layout_height="46dp"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
-        android:ems="10"
-        android:inputType="textPersonName"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/textViewLongitude"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textViewLongitude" />
