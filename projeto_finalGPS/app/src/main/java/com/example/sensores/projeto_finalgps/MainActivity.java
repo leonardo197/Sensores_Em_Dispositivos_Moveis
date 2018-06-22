@@ -169,9 +169,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         public void onSensorChanged(SensorEvent event) {
             if (gravar == true) {
-                X = event.values[1];
-                Y = event.values[2];
-                Z = event.values[3];
+                X = event.values[0];
+                Y = event.values[1];
+                Z = event.values[2];
 
 
             }
