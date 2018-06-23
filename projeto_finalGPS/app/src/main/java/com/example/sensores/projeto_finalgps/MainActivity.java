@@ -31,6 +31,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import static java.lang.Character.MAX_VALUE;
+import static java.lang.Character.MIN_VALUE;
+
 public class MainActivity extends AppCompatActivity implements SensorEventListener, OnMapReadyCallback {
     TextView txLongitude;
     TextView txLatitude;
@@ -165,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 localionM = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
                 cordenadas = localionM.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-                Longitude = cordenadas.getLongitude();
+                Longitude =cordenadas.getLongitude();
                 Latitude = cordenadas.getLatitude();
 
                 txLatitude.setText("" + Longitude);
