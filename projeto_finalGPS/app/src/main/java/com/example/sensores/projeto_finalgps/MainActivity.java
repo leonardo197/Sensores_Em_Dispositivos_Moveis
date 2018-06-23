@@ -31,7 +31,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-
 public class MainActivity extends AppCompatActivity implements SensorEventListener, OnMapReadyCallback {
     TextView txLongitude;
     TextView txLatitude;
@@ -68,52 +67,58 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         btnStart = (Button) findViewById(R.id.buttonStart);
         btnStop = (Button) findViewById(R.id.buttonStop);
 
-
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         btnStart.setOnClickListener(
                 new View.OnClickListener() {
 
                     @Override
                     public void onClick(View view) {
-                        passos = 0;
-                        String nome_do_arquivo = "teste.csv";
-                        textViewCounter.setText(String.valueOf(passos));
-                        root = new File(Environment.getExternalStorageDirectory(), "Download");
-                        if (!root.exists()) {
-                            root.mkdirs();
-                        }
-                        File gpxfile = new File(root, nome_do_arquivo);
-                        try {
-                            writer = new FileWriter(gpxfile);
-                            Toast.makeText(getApplicationContext(), "a gravar", Toast.LENGTH_SHORT).show();
-                            writer.append("Longitude;Latitude;Pedometro;Posicao X;Posicao Y;Posicao Z");
-                            writer.append('\n');
-                            gravar = true;
-
-                        } catch (IOException e) {
-
-                            Toast.makeText(getApplicationContext(), "n'Saved", Toast.LENGTH_SHORT).show();
-                        }
+                        criar_ficheiro_csv();
                     }
                 });
         btnStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    writer.flush();
-                    writer.close();
-                    Toast.makeText(getApplicationContext(), "ficheiro guardado", Toast.LENGTH_SHORT).show();
-                } catch (IOException e) {
-                    Toast.makeText(getApplicationContext(), "erro na a gravar ficheiro", Toast.LENGTH_SHORT).show();
-                }
+                guarda_ficheiro_csv();
             }
         });
         txLongitude = (TextView) findViewById(R.id.txLongitude);
         txLatitude = (TextView) findViewById(R.id.txLatitude);
     }
 
-    protected void onResume() {
-        super.onResume();
+    public void criar_ficheiro_csv() {
+        passos = 0;
+        String nome_do_arquivo = "teste.csv";
+        textViewCounter.setText(String.valueOf(passos));
+        root = new File(Environment.getExternalStorageDirectory(), "Download");
+        if (!root.exists()) {
+            root.mkdirs();
+        }
+        File gpxfile = new File(root, nome_do_arquivo);
+        try {
+            writer = new FileWriter(gpxfile);
+            Toast.makeText(getApplicationContext(), "a gravar", Toast.LENGTH_SHORT).show();
+            writer.append("Longitude;Latitude;Pedometro;Posicao X;Posicao Y;Posicao Z");
+            writer.append('\n');
+            gravar = true;
+
+        } catch (IOException e) {
+
+            Toast.makeText(getApplicationContext(), "n'Saved", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void guarda_ficheiro_csv() {
+        try {
+            writer.flush();
+            writer.close();
+            Toast.makeText(getApplicationContext(), "ficheiro guardado", Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            Toast.makeText(getApplicationContext(), "erro na a gravar ficheiro", Toast.LENGTH_SHORT).show();
+        }
+        gravar=false;
+    }
+    public void testa_sensor_stps(){
         contador_de_passos = true;
         Sensor countSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
         Sensor acelerometroSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -124,7 +129,20 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             Toast.makeText(this, "Sensor não encontrado", Toast.LENGTH_SHORT).show();
         }
     }
+    public void guarda_dados(){
+        try {
+            texto_do_arquivo = Longitude + ";" + Latitude + ";" + passos + ";" + X + ";" + Y + ";" + Z;
+            writer.append(texto_do_arquivo);
+            writer.append('\n');
+        } catch (IOException e) {
 
+            Toast.makeText(this, "erro na escrita do ficheiro", Toast.LENGTH_SHORT).show();
+        }
+    }
+    protected void onResume() {
+        super.onResume();
+        testa_sensor_stps();
+    }
     protected void onPause() {
         super.onPause();
         contador_de_passos = false;
@@ -147,7 +165,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 localionM = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
                 cordenadas = localionM.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-
                 Longitude = cordenadas.getLongitude();
                 Latitude = cordenadas.getLatitude();
 
@@ -155,14 +172,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 txLongitude.setText("" + Latitude);
 
                 if (gravar == true) {
-                    try {
-                        texto_do_arquivo = Longitude + ";" + Latitude + ";" + passos+";"+X+";"+Y+";"+Z;
-                        writer.append(texto_do_arquivo);
-                        writer.append('\n');
-                    } catch (IOException e) {
-
-                        Toast.makeText(this, "erro na escrita do ficheiro", Toast.LENGTH_SHORT).show();
-                    }
+                    guarda_dados();
                 }
             }
         }
@@ -175,8 +185,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     class AcelerometroSensor implements SensorEventListener {
         public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-
         }
 
         public void onSensorChanged(SensorEvent event) {
@@ -187,11 +195,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
         }
     }
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
 
-        LatLng sydney = new LatLng(Longitude, Latitude);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    public void onMapReady(GoogleMap map) {
+        map.addMarker(new MarkerOptions().position(new LatLng(-25.443150, -49.238243)).title("Jardim Botânico"));
     }
 }
